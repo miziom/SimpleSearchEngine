@@ -71,3 +71,6 @@ fabric.properties
 
 #directories
 target/**
+
+#files
+doc1.txt
