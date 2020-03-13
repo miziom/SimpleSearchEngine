@@ -1,6 +1,4 @@
-package com.findwise.fileHandler;
-
-import com.findwise.SearchEngine;
+package com.findwise;
 
 import java.io.File;
 import java.io.IOException;
