@@ -1,4 +1,7 @@
-package com.findwise;
+package com.findwise.fileHandler;
+
+import com.findwise.IndexEntry;
+import com.findwise.SearchEngine;
 
 import java.util.HashMap;
 import java.util.List;
