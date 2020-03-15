@@ -57,7 +57,7 @@ public class MenuEngine {
         }
     }
 
-    private void printListEntry(List<IndexEntry> listIndexEntry, String term){
+    private void printListEntry(List<IndexEntry> listIndexEntry, String term) {
         System.out.println("Result for term: " + term);
         System.out.printf("%5s %30s", "POS", "DOCUMENT ID\n");
         listIndexEntry.forEach(indexEntry ->
@@ -120,16 +120,17 @@ public class MenuEngine {
     }
 
     private boolean switchAnalyzeMenu(String decision) {
-        switch (decision) {
-            case "1": {
-                return false;
-            }
-            default: {
+        if (decision.equals("1")) {
+            return false;
+        } else {
+            if (decision.isEmpty()) {
+                System.out.println("Empty term . . .");
+            } else {
                 List<IndexEntry> listIndexEntry = searchEngine.search(decision);
                 printListEntry(listIndexEntry, decision);
-                printWaitForKey();
-                return true;
             }
+            printWaitForKey();
+            return true;
         }
     }
 }
