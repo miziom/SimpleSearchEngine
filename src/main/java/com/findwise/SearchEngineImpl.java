@@ -1,21 +1,23 @@
-package com.findwise.fileHandler;
-
-import com.findwise.*;
+package com.findwise;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class SearchEngineImpl implements SearchEngine {
 
     private static Map<String, String> docs;
-    private static final String WORD_PATTERN = "\\b[^\\s]+\\b";
-    private static final String SUFFIX_PATTERN = "\\W+[^\\W]*$";
 
     public SearchEngineImpl() {
         if (docs == null) {
             this.docs = new HashMap<>();
         }
+    }
+
+    @Override
+    public Map<String, String> getDocs() {
+        return docs;
     }
 
     @Override
@@ -37,14 +39,13 @@ public class SearchEngineImpl implements SearchEngine {
     private void prepareTfMap(String term, Map<String, TF> tfMap) {
         for (Map.Entry<String, String> entry : docs.entrySet()) {
             List<String> docTokenize = new ArrayList<>();
-            Matcher m = Pattern.compile(WORD_PATTERN).matcher(entry.getValue());
+            Matcher m = Pattern.compile(Globals.WORD_PATTERN).matcher(entry.getValue());
             while (m.find()) {
                 docTokenize.add(m.group());
             }
-            docTokenize.replaceAll(e -> e.replaceAll(SUFFIX_PATTERN, ""));
+            docTokenize.replaceAll(e -> e.replaceAll(Globals.SUFFIX_PATTERN, ""));
             TF tf = new TF(term, docTokenize);
             tfMap.put(entry.getKey(), tf);
-            System.out.println(docTokenize);
         }
     }
 

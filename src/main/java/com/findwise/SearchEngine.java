@@ -1,6 +1,7 @@
 package com.findwise;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SearchEngine {
     /**
@@ -15,4 +16,10 @@ public interface SearchEngine {
      * @return Sorted list of search results containing the given term
      */
     List<IndexEntry> search(String term);
+
+    /**
+     *
+     * @return Map with loaded documents
+     */
+    Map<String, String> getDocs();
 }
