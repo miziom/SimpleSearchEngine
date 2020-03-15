@@ -30,6 +30,6 @@ public class IDF {
     }
 
     private double countIdf() {
-        return Math.log((double) this.docNumber / (double) this.docWithTerm);
+        return (Math.log((double) this.docNumber / (double) (this.docWithTerm) + 1) + 1);
     }
 }

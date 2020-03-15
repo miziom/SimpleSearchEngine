@@ -14,24 +14,4 @@ public class IndexEntryImpl implements IndexEntry {
         this.id = id;
         this.score = score;
     }
-
-//    @Override
-//    public String getId() {
-//        return this.id;
-//    }
-//
-//    @Override
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
-//    @Override
-//    public double getScore() {
-//        return this.score;
-//    }
-//
-//    @Override
-//    public void setScore(double score) {
-//        this.score = score;
-//    }
 }
