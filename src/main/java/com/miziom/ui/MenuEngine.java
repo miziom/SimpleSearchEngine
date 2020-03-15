@@ -1,5 +1,10 @@
-package com.findwise;
+package com.miziom.ui;
 
+import com.miziom.constant.Globals;
+import com.findwise.IndexEntry;
+import com.findwise.SearchEngine;
+import com.miziom.implementation.SearchEngineImpl;
+import com.miziom.filehandler.FileLoader;
 import lombok.NoArgsConstructor;
 
 import java.io.File;

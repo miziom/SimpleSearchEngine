@@ -1,4 +1,11 @@
-package com.findwise;
+package com.miziom.implementation;
+
+import com.findwise.IndexEntry;
+import com.findwise.SearchEngine;
+import com.miziom.calculation.IDF;
+import com.miziom.calculation.TF;
+import com.miziom.comparator.SortByScore;
+import com.miziom.constant.Globals;
 
 import java.util.*;
 import java.util.regex.Matcher;

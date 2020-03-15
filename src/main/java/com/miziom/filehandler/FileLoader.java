@@ -1,5 +1,8 @@
-package com.findwise;
+package com.miziom.filehandler;
 
+import com.miziom.constant.Globals;
+import com.findwise.SearchEngine;
+import com.miziom.implementation.SearchEngineImpl;
 import lombok.Getter;
 import lombok.Setter;
 

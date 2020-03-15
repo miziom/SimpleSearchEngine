@@ -1,4 +1,6 @@
-package com.findwise;
+package com.miziom.comparator;
+
+import com.findwise.IndexEntry;
 
 import java.util.Comparator;
 

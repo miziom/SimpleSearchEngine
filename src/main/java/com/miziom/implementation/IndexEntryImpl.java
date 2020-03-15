@@ -1,5 +1,6 @@
-package com.findwise;
+package com.miziom.implementation;
 
+import com.findwise.IndexEntry;
 import lombok.Getter;
 import lombok.Setter;
 

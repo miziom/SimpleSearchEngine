@@ -1,4 +1,4 @@
-package com.findwise;
+package com.miziom.calculation;
 
 import lombok.Getter;
 
