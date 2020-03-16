@@ -82,7 +82,14 @@ public class MenuEngine {
             }
             break;
             case 2: {
-                while (analyzeMenu()) ;
+                if(fileLoader.isDoc()){
+                    while (analyzeMenu()) ;
+                }
+                else {
+                    System.out.println("No documents added . . .");
+                    printWaitForKey();
+                }
+
             }
             break;
             case 3: {

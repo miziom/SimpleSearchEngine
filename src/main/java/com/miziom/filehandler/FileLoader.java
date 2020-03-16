@@ -35,6 +35,10 @@ public class FileLoader {
         return docs;
     }
 
+    public boolean isDoc(){
+        return !docs.isEmpty();
+    }
+
     public void loadDoc(File file) throws IOException {
         if(file.getName().endsWith(Globals.TXT_PATTERN)){
             String id = file.getName();
