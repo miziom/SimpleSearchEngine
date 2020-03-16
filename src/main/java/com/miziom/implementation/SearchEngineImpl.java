@@ -6,6 +6,7 @@ import com.miziom.calculation.IDF;
 import com.miziom.calculation.TF;
 import com.miziom.comparator.SortByScore;
 import com.miziom.constant.Globals;
+import com.miziom.invertedindex.TermInfo;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -15,10 +16,14 @@ import java.util.regex.Pattern;
 public class SearchEngineImpl implements SearchEngine {
 
     private static Map<String, String> docs;
+    private static Map<String, List<TermInfo>> index;
 
     public SearchEngineImpl() {
         if (docs == null) {
-            this.docs = new HashMap<>();
+            docs = new HashMap<>();
+        }
+        if(index == null){
+            index = new HashMap<>();
         }
     }
 
@@ -29,7 +34,22 @@ public class SearchEngineImpl implements SearchEngine {
 
     @Override
     public void indexDocument(String id, String content) {
-        this.docs.put(id, content);
+        docs.put(id, content);
+        List<String> docTokenize = new ArrayList<>();
+        Matcher m = Pattern.compile(Globals.WORD_PATTERN).matcher(content);
+        while (m.find()) {
+            docTokenize.add(m.group());
+        }
+        int pos = 0;
+        for (String token : docTokenize) {
+            pos++;
+            List<TermInfo> idx = index.get(token);
+            if (idx == null) {
+                idx = new ArrayList<>();
+                index.put(token, idx);
+            }
+            idx.add(new TermInfo(id, pos));
+        }
     }
 
     @Override
