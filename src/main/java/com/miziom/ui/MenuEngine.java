@@ -5,6 +5,7 @@ import com.findwise.IndexEntry;
 import com.findwise.SearchEngine;
 import com.miziom.implementation.SearchEngineImpl;
 import com.miziom.filehandler.FileLoader;
+import com.miziom.invertedindex.InvertedIndex;
 import lombok.NoArgsConstructor;
 
 import java.io.File;
@@ -18,6 +19,7 @@ public class MenuEngine {
 
     private static Scanner scanner = new Scanner(System.in);
     private FileLoader fileLoader = new FileLoader();
+    private InvertedIndex invertedIndex = new InvertedIndex();
     private static SearchEngine searchEngine = new SearchEngineImpl();
 
 
@@ -89,7 +91,6 @@ public class MenuEngine {
                     System.out.println("No documents added . . .");
                     printWaitForKey();
                 }
-
             }
             break;
             case 3: {
@@ -122,7 +123,7 @@ public class MenuEngine {
 
     private boolean analyzeMenu() {
         printAnalyzeMenu();
-        String decision = scanner.nextLine().trim();
+        String decision = scanner.nextLine().trim().toLowerCase();
         return switchAnalyzeMenu(decision);
     }
 
@@ -132,7 +133,11 @@ public class MenuEngine {
         } else {
             if (decision.isEmpty()) {
                 System.out.println("Empty term . . .");
-            } else {
+            }
+            if(!invertedIndex.termExists(decision)){
+                System.out.println("Term do not occur in added documents . . .");
+            }
+            else {
                 List<IndexEntry> listIndexEntry = searchEngine.search(decision);
                 printListEntry(listIndexEntry, decision);
             }

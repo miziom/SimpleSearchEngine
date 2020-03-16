@@ -12,6 +12,10 @@ public class InvertedIndex {
         }
     }
 
+    public boolean termExists(String term){
+        return invertedIndex.containsKey(term);
+    }
+
     public int countOccurringWord(String docId, String term) {
         return (int) invertedIndex.get(term).stream()
                 .filter(e -> e.getDocId().equals(docId))

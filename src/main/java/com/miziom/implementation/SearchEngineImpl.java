@@ -27,7 +27,7 @@ public class SearchEngineImpl implements SearchEngine {
         List<String> docTokenize = new ArrayList<>();
         Matcher m = Pattern.compile(Globals.WORD_PATTERN).matcher(content);
         while (m.find()) {
-            docTokenize.add(m.group());
+            docTokenize.add(m.group().replace(Globals.SUFFIX_PATTERN, ""));
         }
         fileLoader.addDoc(id, docTokenize);
         invertedIndex.addInvertedIndex(id, docTokenize);
