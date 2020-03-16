@@ -43,8 +43,13 @@ public class FileLoader {
         if(file.getName().endsWith(Globals.TXT_PATTERN)){
             String id = file.getName();
             String content = Files.readString(file.toPath()).toLowerCase();
-            searchEngine.indexDocument(id, content);
-            System.out.println("File loaded.");
+            if(content.trim().isEmpty()){
+                System.out.println("File is empty . . .");
+            }
+            else {
+                searchEngine.indexDocument(id, content);
+                System.out.println("File loaded.");
+            }
         }
         else {
             System.out.println("Not .txt file . . .");
