@@ -1,6 +1,8 @@
 package com.miziom.invertedindex;
 
+import lombok.Getter;
 
+@Getter
 public class TermInfo {
 
     private String docId;

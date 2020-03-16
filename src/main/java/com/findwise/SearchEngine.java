@@ -21,5 +21,5 @@ public interface SearchEngine {
      *
      * @return Map with loaded documents
      */
-    Map<String, String> getDocs();
+    Map<String, Integer> getDocs();
 }

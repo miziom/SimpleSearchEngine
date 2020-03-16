@@ -15,39 +15,35 @@ import java.util.regex.Pattern;
 
 public class SearchEngineImpl implements SearchEngine {
 
-    private static Map<String, String> docs;
-    private static Map<String, List<TermInfo>> index;
+    private static Map<String, Integer> docs;
+    private static Map<String, List<TermInfo>> invertedIndex;
 
     public SearchEngineImpl() {
         if (docs == null) {
             docs = new HashMap<>();
         }
-        if(index == null){
-            index = new HashMap<>();
+        if (invertedIndex == null) {
+            invertedIndex = new HashMap<>();
         }
     }
 
     @Override
-    public Map<String, String> getDocs() {
+    public Map<String, Integer> getDocs() {
         return docs;
     }
 
     @Override
     public void indexDocument(String id, String content) {
-        docs.put(id, content);
         List<String> docTokenize = new ArrayList<>();
         Matcher m = Pattern.compile(Globals.WORD_PATTERN).matcher(content);
         while (m.find()) {
             docTokenize.add(m.group());
         }
+        docs.put(id, docTokenize.size());
         int pos = 0;
         for (String token : docTokenize) {
             pos++;
-            List<TermInfo> idx = index.get(token);
-            if (idx == null) {
-                idx = new ArrayList<>();
-                index.put(token, idx);
-            }
+            List<TermInfo> idx = invertedIndex.computeIfAbsent(token, k -> new ArrayList<>());
             idx.add(new TermInfo(id, pos));
         }
     }
@@ -57,21 +53,18 @@ public class SearchEngineImpl implements SearchEngine {
         List<IndexEntry> listIndexEntry = new ArrayList<>();
         Map<String, TF> tfMap = new HashMap<>();
         prepareTfMap(term, tfMap);
-        IDF idf = new IDF(docs, tfMap);
+        IDF idf = new IDF(countDocNumber(), countDocsWithTerm(term));
         countScore(listIndexEntry, tfMap, idf);
         Collections.sort(listIndexEntry, new SortByScore());
         return listIndexEntry;
     }
 
     private void prepareTfMap(String term, Map<String, TF> tfMap) {
-        for (Map.Entry<String, String> entry : docs.entrySet()) {
-            List<String> docTokenize = new ArrayList<>();
-            Matcher m = Pattern.compile(Globals.WORD_PATTERN).matcher(entry.getValue());
-            while (m.find()) {
-                docTokenize.add(m.group());
-            }
-            docTokenize.replaceAll(e -> e.replaceAll(Globals.SUFFIX_PATTERN, ""));
-            TF tf = new TF(term, docTokenize);
+        for (Map.Entry<String, Integer> entry : docs.entrySet()) {
+            TF tf = new TF(
+                    countOccurringWord(entry.getKey(), term),
+                    countWordsInDoc(entry.getKey())
+            );
             tfMap.put(entry.getKey(), tf);
         }
     }
@@ -83,5 +76,27 @@ public class SearchEngineImpl implements SearchEngine {
                 listIndexEntry.add(new IndexEntryImpl(entry.getKey(), score));
             }
         }
+    }
+
+    private int countOccurringWord(String docId, String term) {
+        return (int) invertedIndex.get(term).stream()
+                .filter(e -> e.getDocId().equals(docId))
+                .count();
+    }
+
+    private int countWordsInDoc(String docId) {
+        return docs.get(docId);
+    }
+
+    private int countDocNumber() {
+        return docs.size();
+    }
+
+    private int countDocsWithTerm(String term) {
+        Set<String> set = new HashSet<>();
+        for (TermInfo termInfo : invertedIndex.get(term)) {
+            set.add(termInfo.getDocId());
+        }
+        return set.size();
     }
 }
