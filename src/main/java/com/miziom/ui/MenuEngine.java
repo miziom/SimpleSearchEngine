@@ -61,9 +61,9 @@ public class MenuEngine {
 
     private void printListEntry(List<IndexEntry> listIndexEntry, String term) {
         System.out.println("Result for term: \"" + term + "\"");
-        System.out.printf("%5s %30s", "POS", "DOCUMENT ID\n");
+        System.out.printf("%10s %50s %30s", "POS", "DOCUMENT ID", "SCORE\n");
         listIndexEntry.forEach(indexEntry ->
-                System.out.printf("%10s %30s", listIndexEntry.indexOf(indexEntry) + 1, indexEntry.getId() + "\n"));
+                System.out.printf("%10s %50s %30s", listIndexEntry.indexOf(indexEntry) + 1, indexEntry.getId(), indexEntry.getScore() + "\n"));
     }
 
     public void mainMenu() throws IOException {
