@@ -52,7 +52,7 @@ public class MenuEngine {
 
     private void printLoadedFile() {
         System.out.println("Loaded documents:");
-        for (Map.Entry<String, Integer> entry : searchEngine.getDocs().entrySet()) {
+        for (Map.Entry<String, Integer> entry : fileLoader.getDocs().entrySet()) {
             System.out.println(entry.getKey());
         }
     }
