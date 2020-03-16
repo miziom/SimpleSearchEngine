@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class SearchEngineImpl implements SearchEngine {
 
-    private FileLoader fileLoader = new FileLoader();
+    private static FileLoader fileLoader = new FileLoader();
     private InvertedIndex invertedIndex = new InvertedIndex();
 
     public SearchEngineImpl() {

@@ -22,7 +22,7 @@ public class MenuEngine {
 
 
     private void printMainMenu() {
-        System.out.println("=====================================");
+        System.out.println("===================================================");
         System.out.println("The Simple Search Engine - Main Menu");
         System.out.println("1. Add a document.");
         System.out.println("2. Analyze a document.");
@@ -31,7 +31,7 @@ public class MenuEngine {
     }
 
     private void printAddMenu() {
-        System.out.println("================================================");
+        System.out.println("===================================================");
         System.out.println("The Simple Search Engine - Add a document Menu");
         printLoadedFile();
         System.out.println("1. Back to Main Menu");
@@ -58,7 +58,7 @@ public class MenuEngine {
     }
 
     private void printListEntry(List<IndexEntry> listIndexEntry, String term) {
-        System.out.println("Result for term: " + term);
+        System.out.println("Result for term: \"" + term + "\"");
         System.out.printf("%5s %30s", "POS", "DOCUMENT ID\n");
         listIndexEntry.forEach(indexEntry ->
                 System.out.printf("%10s %30s", listIndexEntry.indexOf(indexEntry) + 1, indexEntry.getId() + "\n"));
